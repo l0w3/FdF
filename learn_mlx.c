@@ -94,6 +94,21 @@ void draw_grid(int width, int heigth, int rows, int columns, t_data img)
 
     
 }
+
+void draw_point(int x, int y, t_data img)
+{
+    
+	my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+    my_mlx_pixel_put(&img, --x, --y, 0x00FF0000);
+	my_mlx_pixel_put(&img, ++x, y, 0x00FF0000);
+	my_mlx_pixel_put(&img, ++x, y++, 0x00FF0000);
+	my_mlx_pixel_put(&img, x-2, y, 0x00FF0000);
+	my_mlx_pixel_put(&img, x, y++, 0x00FF0000);
+	my_mlx_pixel_put(&img, x-2, y, 0x00FF0000);
+	my_mlx_pixel_put(&img, x-1, y, 0x00FF0000);
+	my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+}
+
 int	main(void)
 {
 	void	*mlx;
@@ -101,11 +116,14 @@ int	main(void)
 	t_data	img;
 
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	img.img = mlx_new_image(mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-    draw_grid(100, 100, 2, 2, img);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_win = mlx_new_window(mlx, 1080, 720, "Hello world!");
+	img.img = mlx_new_image(mlx, 1080, 720);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+    //draw_grid(100, 100, 10, 10, img);
+    draw_point(10, 10, img);
+    draw_point(10, 70, img);
+    draw_point(70, 10, img);
+    draw_point(70, 70, img);
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 1080/2, 720/2);
 	mlx_loop(mlx);
 }
